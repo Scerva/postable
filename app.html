@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0d1b2a">
+  <title>Postable — App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ── Screen 1: Upload ── -->
+    <section id="screen-upload" class="screen active">
+      <div class="upload-top">
+        <a href="index.html" class="logo">Postable</a>
+        <p class="tagline">Pick the best face from every shot</p>
+      </div>
+
+      <label id="dropzone" for="file-input">
+        <div class="dz-inner">
+          <svg class="dz-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
+          </svg>
+          <p class="dz-label">Tap to upload photos</p>
+          <p class="dz-sub">Add 2 or more group shots</p>
+        </div>
+        <input type="file" id="file-input" accept="image/*" multiple>
+      </label>
+
+      <div id="photo-thumbs" class="photo-thumbs hidden"></div>
+
+      <div id="upload-actions" class="upload-actions hidden">
+        <button id="btn-analyze" class="btn btn-primary">
+          Find Faces
+          <span id="photo-count" class="pill">0</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── Screen 2: Loading ── -->
+    <section id="screen-loading" class="screen">
+      <div class="loading-wrap">
+        <div class="spinner"></div>
+        <p id="loading-status" class="loading-text">Preparing…</p>
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill" style="width:0%"></div>
+        </div>
+        <p id="loading-sub" class="loading-sub">Models download once and are cached by your browser</p>
+      </div>
+    </section>
+
+    <!-- ── Screen 3: Face Picker ── -->
+    <section id="screen-picker" class="screen">
+      <header class="top-bar">
+        <button id="btn-back" class="icon-btn" aria-label="Back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <h2>Choose faces</h2>
+        <div class="spacer"></div>
+      </header>
+
+      <div class="scroll-body">
+        <div class="section-header">
+          <p class="section-label">Base composition</p>
+          <p class="section-hint">Overall framing &amp; background</p>
+        </div>
+        <div id="base-selector" class="base-selector"></div>
+
+        <div class="section-header">
+          <p class="section-label">Best face per person</p>
+          <p class="section-hint">Tap a face to select it</p>
+        </div>
+        <div id="people-list" class="people-list"></div>
+      </div>
+
+      <div class="bottom-bar">
+        <button id="btn-compose" class="btn btn-primary btn-full">Create Photo</button>
+      </div>
+    </section>
+
+    <!-- ── Screen 4: Result ── -->
+    <section id="screen-result" class="screen">
+      <header class="top-bar">
+        <button id="btn-back-result" class="icon-btn" aria-label="Back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <h2>Your photo</h2>
+        <div class="spacer"></div>
+      </header>
+
+      <div class="result-scroll">
+        <div class="result-wrap">
+          <canvas id="result-canvas"></canvas>
+        </div>
+      </div>
+
+      <div class="bottom-bar">
+        <button id="btn-download" class="btn btn-primary btn-full">Download</button>
+        <button id="btn-restart" class="btn btn-ghost btn-full">Start Over</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
